@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.py~
+*$py.class
+
+# Backup Files
+*~
+*#
+.#*
+#*
+
+# None of the data
+data/*
+
+# But keep all the .gitkeep files
+!*.gitkeep
+

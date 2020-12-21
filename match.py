@@ -1,4 +1,5 @@
 """Script to output the matches"""
+import re
 import argparse
 from pathlib import Path
 
@@ -19,6 +20,10 @@ def main(args):
     # Most recently downloaded files
     df_mentee = pd_load(list(dir_data.glob(f'*{args.mentee_csv}*'))[0])
     df_mentor = pd_load(list(dir_data.glob(f'*{args.mentor_csv}*'))[0])
+    
+    # Turn columns into ints
+    args.mentee_columns = [int(c) for c in args.mentee_columns]
+    args.mentor_columns = [int(c) for c in args.mentor_columns]
 
     # Get the names of the relevant columns
     columns_mentee = list(df_mentee.columns[args.mentee_columns])
@@ -46,11 +51,11 @@ def main(args):
     # Turn into a sets
     set_combined_interests_mentee = pd.DataFrame(
         {'Interests' : combined_interests_mentee.apply(
-            lambda x: set(x.split(', '))),
+            lambda x: set(re.split(',|;', x))),
          'Name' : names_mentee}).reset_index(drop=True)
     set_combined_interests_mentor = pd.DataFrame(
         {'Interests' : combined_interests_mentor.apply(
-            lambda x: set(x.split(', '))),
+            lambda x: set(re.split(',|;', x))),
          'Name' : names_mentor}).reset_index(drop=True)
     
     # Merge Interests of people who have multiple entries

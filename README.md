@@ -48,3 +48,9 @@ optional arguments:
 This help command will also appear if you run:
 
 	$ python match.py --help
+
+When specifying the columns for `mentee_columns` or `mentor_columns` the script will remove the first column of timestamps. It can now handle both commas and semicolon delimiters.
+
+An example of running with arguments:
+
+   	$ python match.py --mentee_columns 2 3 4 --mentor_columns 1 2 3
